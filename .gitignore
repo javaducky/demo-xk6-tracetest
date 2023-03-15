@@ -1,0 +1,6 @@
+# We're just pulling latest from Github for the system under test
+opentelemetry-demo/
+tracetest/
+
+k6
+tracetest.json
