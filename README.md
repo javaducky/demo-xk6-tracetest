@@ -30,7 +30,9 @@ Open the Tracetest user interface at http://localhost:11633.
 > No problem. Just delete the `tracetest` directory and run the `tracetest server install` again.
 
 ## Lab 2: Creating and running tests
-TODO Create the Import, Add, and List tests
+TODO Create the Import, Add, and List tests. Be sure to add using Trigger-type and "TRACE_ID" as variable name. Needed in k6 script.
+https://docs.tracetest.io/tools-and-integrations/k6/#creating-your-tracetest-test
+
 
 ## Lab 3: Create some activity with k6 
 Build custom k6 with xk6-tracetest extension. This allows k6 to generate load for the Pokémon application so we can analyze the traces.

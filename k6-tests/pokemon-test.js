@@ -5,11 +5,11 @@ import { Http, Tracetest } from "k6/x/tracetest";
 
 export const options = {
   vus: 1,
-  duration: "6s",
+  duration: "6s", // BUG: Anything less than about 5 or 6 seconds will end with no summary report
 };
 
 // BE SURE TO CHECK THIS!!! Should match the definition identifier for your test.
-const testId = "i_VVpEa4R";
+const testId = "MHSb0E-4R";
 
 const tracetest = Tracetest({
   serverUrl: "http://localhost:11633",
@@ -26,7 +26,10 @@ export default function () {
   });
   const params = {
     tracetest: {
+      // define the triggered test id
       testId,
+      // used variable name to inject the trace id to the test
+      variableName: 'TRACE_ID',
     },
     headers: {
       "Content-Type": "application/json",
@@ -41,6 +44,8 @@ export default function () {
   });
   sleep(1);
 
+  // direct access to the trace id from the response object
+//   console.log(response.trace_id)
 }
 
 // enable this to return a non-zero status code if a tracetest test fails
