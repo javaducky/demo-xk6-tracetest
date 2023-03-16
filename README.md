@@ -92,7 +92,7 @@ git clone https://github.com/open-telemetry/opentelemetry-demo.git
 ```
 
 ```bash
-docker compose up -f opentelemetry-demo/docker-compose.yml --no-build
+docker compose -f opentelemetry-demo/docker-compose.yml up --no-build
 ```
 
 Once the images are built and containers are started you can access:
