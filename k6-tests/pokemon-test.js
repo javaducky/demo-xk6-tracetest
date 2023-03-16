@@ -1,4 +1,5 @@
-import { check, sleep } from "k6";
+import { sleep } from "k6";
+import { expect } from 'https://jslib.k6.io/k6chaijs/4.3.4.2/index.js';
 import { randomIntBetween } from "https://jslib.k6.io/k6-utils/1.4.0/index.js";
 import { textSummary } from "https://jslib.k6.io/k6-summary/0.0.2/index.js";
 import { Http, Tracetest } from "k6/x/tracetest";
@@ -38,17 +39,14 @@ export default function () {
 
   const response = http.post(url, payload, params);
 
-  check(response, {
-    "is status 200": (r) => r.status === 200,
-    "body matches id": (r) => JSON.parse(r.body).id === pokemonId,
-  });
-  sleep(1);
+  const result = JSON.parse(response.body);
+//   console.log(response.body);
+  expect(result.id, 'new registrant').to.equal(pokemonId);
 
-  // direct access to the trace id from the response object
-//   console.log(response.trace_id)
+  sleep(1);
 }
 
-// enable this to return a non-zero status code if a tracetest test fails
+// Returns a non-zero status code if a tracetest test fails
 export function teardown() {
   tracetest.validateResult();
 }
