@@ -2,6 +2,7 @@
 Demo files for the [_"Trace-based Testing with Tracetest"_](https://www.meetup.com/Kubernetes-Cloud-Native-STL/events/292026311/) ([Video](https://www.youtube.com/watch?v=EU-M75ZejHY)), originally presented to the _Kubernetes & Cloud Native STL_ meetup group.
 
 ## Prerequisites
+* [git](https://git-scm.com/) - For accessing the sourcecode repositories
 * [Docker](https://docs.docker.com/get-docker/) - For building our custom k6 images and running the examples
 * [Tracetest](https://tracetest.io/download) - Installs the command-line interface (CLI) for Tracetest
 
@@ -46,7 +47,7 @@ TODO
 - Run a test to show failed operation
 
 ## Lab 4: Create some activity with k6 
-Build custom k6 with [xk6-tracetest extension](https://docs.tracetest.io/tools-and-integrations/k6/#creating-your-tracetest-test). This allows k6 to generate load for the Pokémon application so we can analyze the traces.
+Build custom k6 with [xk6-tracetest extension](https://github.com/kubeshop/xk6-tracetest). This allows k6 to generate load for the Pokémon application so we can analyze the traces.
 
 ```bash
 docker run --rm -e GOOS=darwin -u "$(id -u):$(id -g)" -v "${PWD}:/xk6" \
@@ -60,18 +61,16 @@ You'll now have a k6 binary in the current directory ready for use with Tracetes
 ./k6 version
 ```
 
-For the k6 tests, we need to create new test definitions using the _TraceID_ trigger, defining `TRACE_ID` as your variable name!
-
-Update the `testId` constant in the `k6-tests/pokemon-test.js` script to match the actual id for your test definition!
+For the k6 tests, we need to create new test definitions using the _TraceID_ trigger, defining `TRACE_ID` as your variable name! Update the `testId` constant in the `k6-tests/pokemon-test.js` script to match the actual id for your test definition! See the [documentation](https://docs.tracetest.io/tools-and-integrations/k6/#creating-your-tracetest-test) for more info.
 
 ```bash
-./k6 run -o xk6-tracetest k6-tests/pokemon-test.js
+./k6 run -o xk6-tracetest k6-tests/pokemon-import.js
 ```
 
 This will execute several iterations of the _Import_ process which you may then view in the Tracetest user interface.
 
 - :ballot_box_with_check: Experiment to create assertions to cause failing tests
-
+- :ballot_box_with_check: Create `pokemon-add.js` and `pokemon-list.js` tests
 
 ### :thumbsup: Cleaning up
 Feel free to clean-up resources by running:
